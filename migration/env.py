@@ -7,6 +7,7 @@ from sqlalchemy.engine import Connection
 from sqlalchemy.ext.asyncio import AsyncEngine
 from app.models.models import SQLModel
 from app.config.config import setting
+from app.models import posts
 
 
 from alembic import context
