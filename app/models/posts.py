@@ -1,8 +1,12 @@
 from app.models.models import SQLModel
-from typing import Optional
-from sqlmodel import Field
+from typing import Optional, TYPE_CHECKING
+from sqlmodel import Field, Relationship
 from datetime import datetime
+from pydantic import EmailStr
 import sqlalchemy
+
+if TYPE_CHECKING:
+    from app.models.users import User
 
 class Posts(SQLModel, table = True):
     id: Optional[int] = Field(primary_key = True, default = None)
@@ -11,6 +15,8 @@ class Posts(SQLModel, table = True):
     created_at: datetime = Field(default_factory=datetime.utcnow, sa_column=sqlalchemy.Column(sqlalchemy.DateTime, default=datetime.utcnow))
     updated_at: datetime = Field(default_factory=datetime.utcnow, sa_column=sqlalchemy.Column(sqlalchemy.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow))
     publish: bool 
+    owner_email: EmailStr = Field(foreign_key = "user.email")
+    owner: Optional["User"] = Relationship(back_populates="posts")
 
 class CreatePost(SQLModel):
     title: str

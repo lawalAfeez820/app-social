@@ -2,8 +2,9 @@ from fastapi import APIRouter, HTTPException,Depends
 from fastapi.responses import Response
 from sqlmodel import select, Session
 from app.database.db import get_session
-from app.models import posts
+from app.models import posts, users
 from typing import List
+from app.OAuth.oauth import Token_Data
 
 
 
