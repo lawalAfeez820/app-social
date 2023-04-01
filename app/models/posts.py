@@ -25,3 +25,7 @@ class PostOut(SQLModel):
     created_at: datetime = Field(default_factory=datetime.utcnow, sa_column=sqlalchemy.Column(sqlalchemy.DateTime, default=datetime.utcnow))
     updated_at: datetime = Field(default_factory=datetime.utcnow, sa_column=sqlalchemy.Column(sqlalchemy.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow))\
     
+class UpdatePost(SQLModel):
+    title: Optional[str] = None
+    content : Optional[str] = None
+    publish: Optional[bool] = None
