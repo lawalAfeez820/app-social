@@ -7,13 +7,14 @@ from app.Password_Manager.password import password
 from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
 from app.OAuth.oauth import Token_Data, oauth_data, BLACKLIST
 from pydantic import EmailStr
+from typing import List
 
 app = APIRouter(
     tags = ["User"],
     prefix ="/user"
 )
 
-
+#create account
 @app.post("/", response_model = UserOut, status_code= 201)
 async def create_user(data: CreateUser, db: Session = Depends(get_session)):
 
@@ -43,8 +44,20 @@ async def create_user(data: CreateUser, db: Session = Depends(get_session)):
     
     return data
 
+#get all users
+@app.get("/all", response_model=List[UserOut])
+async def get_all_user(limit:int= 5, offset:int = 0, user: User = Depends(Token_Data.get_current_user), db: Session = Depends(get_session)):
+    members = await db.exec(select(User).limit(limit).offset(offset).order_by(User.user_name))
+    members:List[User] |None = members.all()
+   
+
+    if not user:
+        raise HTTPException(404, detail= f"There is no user at the moment")
+        
+    return members
 
 
+#change passsword
 @app.post("/changepassword", response_model = PlainText)
 async def change_password(Password: PasswordData, db: Session = Depends(get_session), user :User = Depends(Token_Data.get_current_user)):
     if not password.verify_hash(Password.old_password, user.password):
@@ -58,6 +71,9 @@ async def change_password(Password: PasswordData, db: Session = Depends(get_sess
     return PlainText(detail = "Password Changed Successfully")
 
 
+
+#get a particular user by id
+
 @app.get("/{id}", response_model = UserData)
 async def profile(id: int, user: User = Depends(Token_Data.get_current_user), db: Session = Depends(get_session)):
 
@@ -70,20 +86,8 @@ async def profile(id: int, user: User = Depends(Token_Data.get_current_user), db
    
     return part_user
 
-@app.get("/all", response_model = UserOut)
-async def get_all_user(User = Depends(Token_Data.get_current_user), db: Session = Depends(get_session)):
-    users: User= await db.exec(select(User)).mimit(limit).offset(offset)
-    users = users.all()
-   
 
-    if not users:
-        raise HTTPException(404, detail= f"There is no user at the moment")
-        
-    return users
-
-
-
-
+#logout
 
 @app.get("/logout", response_model=PlainText)
 async def logout(auth:str= Depends(oauth_data)):
