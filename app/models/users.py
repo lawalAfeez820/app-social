@@ -16,7 +16,7 @@ class User(SQLModel, table= True):
     password: str
     created_at: datetime = Field(default_factory=datetime.utcnow, sa_column=sqlalchemy.Column(sqlalchemy.DateTime, default=datetime.utcnow))
     updated_at: datetime = Field(default_factory=datetime.utcnow, sa_column=sqlalchemy.Column(sqlalchemy.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow))
-    posts: Optional["Posts"] = Relationship(back_populates="owner")
+    posts: Optional["Posts"] = Relationship(back_populates="owner", sa_relationship_kwargs={'lazy': 'selectin'})
 
 class CreateUser(SQLModel):
     email: EmailStr
@@ -30,6 +30,29 @@ class UserOut(SQLModel):
     created_at: datetime
     updated_at: datetime
 
+class UserPost(SQLModel):
+
+    id: int
+    title: str
+    content: str
+    publish : bool
+    created_at: datetime = Field(default_factory=datetime.utcnow, sa_column=sqlalchemy.Column(sqlalchemy.DateTime, default=datetime.utcnow))
+    updated_at: datetime = Field(default_factory=datetime.utcnow, sa_column=sqlalchemy.Column(sqlalchemy.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow))
+
+class UserData(UserOut):
+    posts: List[UserPost] | None
+
 class LoginCred(SQLModel):
     access_token: str
     token_type: str
+
+class PasswordData(SQLModel):
+    old_password: str
+    new_password: str
+    confirm_newpassword: str
+
+class PlainText(SQLModel):
+    detail: str
+
+class ForgetPassword(SQLModel):
+    email: EmailStr

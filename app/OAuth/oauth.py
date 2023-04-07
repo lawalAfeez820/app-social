@@ -9,7 +9,9 @@ from app.models.users import User
 from datetime import timedelta, datetime
 from app.database.db import get_session
 
-oauth_data = OAuth2PasswordBearer(tokenUrl = "user/me")
+
+oauth_data = OAuth2PasswordBearer(tokenUrl = "login")
+BLACKLIST= set()
 
 
 class Token:
@@ -26,8 +28,13 @@ class Token:
     def verify_access_token(self, token: str, credentials_exception):
         try:
 
+            if token in BLACKLIST:
+               raise credentials_exception
+
             data = jwt.decode(token, setting.secret_key, algorithms=[setting.algorithm])
             email : EmailStr = data.get("email")
+            if not email:
+                raise credentials_exception
 
         except JWTError:
             raise credentials_exception

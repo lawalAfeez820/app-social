@@ -1,5 +1,6 @@
 from pydantic import BaseSettings
 
+
 class Setting(BaseSettings):
     # sqlmodel database settings name
 
@@ -7,6 +8,7 @@ class Setting(BaseSettings):
     algorithm: str
     secret_key: str
     expiry_time: int
+ 
 
     class Config:
         env_file = ".env"
