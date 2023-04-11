@@ -5,9 +5,12 @@ from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 from sqlalchemy.engine import Connection
 from sqlalchemy.ext.asyncio import AsyncEngine
+
+
 from app.models.models import SQLModel
 from app.config.config import setting
-from app.models import posts, users
+from app.models import posts, users, comments, vote
+
 
 
 from alembic import context

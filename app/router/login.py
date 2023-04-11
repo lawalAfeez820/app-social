@@ -6,7 +6,7 @@ from app.Password_Manager.password import password
 from app.OAuth.oauth import Token_Data
 from fastapi.security import OAuth2PasswordRequestForm
 from pydantic import EmailStr
-
+from sqlalchemy.engine.result import ScalarResult
 app = APIRouter()
 
 
@@ -14,7 +14,7 @@ app = APIRouter()
 @app.post("/forgetpassword", response_model=PlainText)
 async def forgetpin(Password:ForgetPassword,email: EmailStr, db: Session= Depends(get_session)):
 
-    user= await db.exec(select(User).where(User.email == Password.email))
+    user: ScalarResult= await db.exec(select(User).where(User.email == Password.email))
     user : User = user.first()
     if not user:
         raise HTTPException(status_code= 409, detail = f"No User with an email {email}")
@@ -27,7 +27,7 @@ async def forgetpin(Password:ForgetPassword,email: EmailStr, db: Session= Depend
 #login
 @app.post("/login", response_model = LoginCred)
 async def Login(details:OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_session)):
-    user = await db.exec(select(User).where(User.email == details.username))
+    user: ScalarResult = await db.exec(select(User).where(User.email == details.username))
   
     user: User | None = user.first()
 

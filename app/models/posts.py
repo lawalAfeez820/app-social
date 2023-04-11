@@ -7,6 +7,7 @@ import sqlalchemy
 
 if TYPE_CHECKING:
     from app.models.users import User
+    from app.models.comments import Comment
     
 
 class Posts(SQLModel, table = True):
@@ -18,6 +19,9 @@ class Posts(SQLModel, table = True):
     publish: bool 
     owner_email: EmailStr = Field(foreign_key = "user.email")
     owner: Optional["User"] = Relationship(back_populates="posts", sa_relationship_kwargs={'lazy': 'selectin'})
+    comments: Optional["Comment"] = Relationship(back_populates="post", sa_relationship_kwargs={'lazy': 'selectin'})
+    
+   
 
 
 class CreatePost(SQLModel):
