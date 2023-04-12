@@ -5,3 +5,5 @@ class Setting(BaseSettings):
 
     class Config:
         env_file = ".env"
+
+setting = Setting()

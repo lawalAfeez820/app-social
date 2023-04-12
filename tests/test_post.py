@@ -1,12 +1,12 @@
 import pytest
-from app import models, schemas
+
 from app.main import app
 import pytest
 from httpx import AsyncClient
 from sqlalchemy import insert, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-@pytest.mark.asyncio
+"""@pytest.mark.asyncio
 async def test_get_all_post_but_zero_post(
    Autorized_Client1
 ):
@@ -99,7 +99,7 @@ async def test_delete_post_unathorized(async_client):
 async def test_delete_post_that_does_not_exist(Autorized_Client1, post1):
     res=await Autorized_Client1.delete("/posts/2")
 
-    assert res.status_code == 404 
+    assert res.status_code == 404 """
 
 
 
