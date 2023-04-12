@@ -76,54 +76,7 @@ async def Authorized_User(user1, async_client):
 
     
 
-"""@pytest_asyncio.fixture
-async def User1(async_client):
-    data = {"email":"adekunle@gmail.com","password": "test"}
-    res = await async_client.post("/users/", json= data)
-    res = res.json()
-    res["password"] = data["password"]
-    return res
 
-@pytest_asyncio.fixture
-async def Login1(async_client, User1):
-    res = await async_client.post("/login",  data={"username": User1["email"], "password": User1["password"]})
-
-    res = schemas.Token(**res.json())
-
-    return res.access_token
-
-@pytest_asyncio.fixture
-async def Autorized_Client1(async_client, Login1):
-    async_client.headers = {**async_client.headers, "Authorization": f"Bearer {Login1}"}
-    return async_client
-
-@pytest_asyncio.fixture
-async def post1(Autorized_Client1):
-    data = {"title": "food", "content": "food is life"}
-    res = await Autorized_Client1.post("/posts/", json = data)
-    res = schemas.ResponseType(** res.json())
-    return res
-
-@pytest_asyncio.fixture
-async def User2(async_client):
-    data = {"email":"adekunl@gmail.com","password": "test"}
-    res = await async_client.post("/users/", json= data)
-    res = res.json()
-    res["password"] = data["password"]
-    return res
-
-@pytest_asyncio.fixture
-async def Login2(async_client, User2):
-    res = await async_client.post("/login",  data={"username": User2["email"], "password": User2["password"]})
-
-    res = schemas.Token(**res.json())
-
-    return res.access_token
-
-@pytest_asyncio.fixture
-async def Autorized_Client2(async_client, Login2):
-    async_client.headers = {**async_client.headers, "Authorization": f"Bearer {Login2}"}
-    return async_client"""
 
 
 
