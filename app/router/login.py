@@ -12,12 +12,12 @@ app = APIRouter()
 
 #forget password route
 @app.post("/forgetpassword", response_model=PlainText)
-async def forgetpin(Password:ForgetPassword,email: EmailStr, db: Session= Depends(get_session)):
+async def forgetpin(Password:ForgetPassword, db: Session= Depends(get_session)):
 
     user: ScalarResult= await db.exec(select(User).where(User.email == Password.email))
     user : User = user.first()
     if not user:
-        raise HTTPException(status_code= 409, detail = f"No User with an email {email}")
+        raise HTTPException(status_code= 409, detail = f"No User with an email {Password.email}")
     user.password = password.hash_ps(user.email)
     db.add(user)
     await db.commit()
