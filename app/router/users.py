@@ -77,12 +77,14 @@ async def change_password(Password: PasswordData, db: Session = Depends(get_sess
 @app.get("/{id}", response_model = UserData)
 async def profile(id: int, user: User = Depends(Token_Data.get_current_user), db: Session = Depends(get_session)):
 
-    if not id:
-        raise HTTPException(404, detail= f"No user with an id {id}")
+    
      
     if id == user.id:
         return user
     part_user = await db.get(User, id)
+    
+    if not part_user:
+        raise HTTPException(404, detail= f"No user with an id {id}")
    
     return part_user
 

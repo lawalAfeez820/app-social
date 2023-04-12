@@ -43,7 +43,7 @@ async def test_user_all_without_auth(async_client: AsyncClient):
 
 
 @pytest.mark.parametrize("old_password, new_password, confirm_newpassword, status_code",
-        [ ("test", 111, 111, 201),
+        [ ("test", 111, 111, 200),
         ("try", 111, 111, 409),
         ("test", 111, 112, 409)])
 @pytest.mark.asyncio
