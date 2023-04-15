@@ -15,7 +15,7 @@ prefix = "/comment")
 
 
 
-@app.post("/{post_id}", response_model = List[CommentOut])
+@app.post("/{post_id}", response_model = List[CommentOut], status_code= 201)
 async def make_comment(post_id: int, comment: MakeComment, user: users.User= Depends(Token_Data.get_current_user), db: Session= Depends(get_session)):
     post:Posts| None = await db.get(Posts, post_id)
     if not post:
@@ -27,7 +27,7 @@ async def make_comment(post_id: int, comment: MakeComment, user: users.User= Dep
     await db.commit()
     await db.refresh(comment)
     comments: ScalarResult = await db.exec(select(Comment).where(Comment.post_id == post_id).order_by(desc(Comment.updated_at)))
-    print(type((comments)))
+    
     comments = comments.all()
     return comments
 
@@ -45,14 +45,16 @@ async def delete_comment(comment_id:int, user: users.User= Depends(Token_Data.ge
     post_id = comment.post_id
     await db.delete(comment)
     await db.commit()
-    comments = await db.exec(select(Comment).where(Comment.post_id == post_id).order_by(desc(Comment.updated_at)))
+    comments: ScalarResult= await db.exec(select(Comment).where(Comment.post_id == post_id).order_by(desc(Comment.updated_at)))
     
     comments = comments.all()
     return comments
 
+
 @app.get("/{post_id}", response_model = users.PlainText)
 async def count_comment(post_id: int, db: Session= Depends(get_session), user: users.User= Depends(Token_Data.get_current_user)):
-    post: Posts | None = await db.get(Posts, id)
+    post: Posts | None = await db.get(Posts, post_id)
+    
     if not post:
         raise HTTPException(404, detail= f"No post with id {post_id}")
     length = len(post.comments)

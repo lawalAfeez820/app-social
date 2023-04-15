@@ -67,12 +67,60 @@ async def user1(async_client: AsyncClient):
     return res
 
 @pytest_asyncio.fixture
+async def user2(async_client: AsyncClient):
+    data = {"email":"lawalafeez8202@gmail.com","password": "test2", "confirm_password": "test2", "user_name": "lawala"}
+    res = await async_client.post("/user/", json = data)
+    res = res.json()
+    res["password"] = data["password"]
+    return res
+
+@pytest_asyncio.fixture
 async def Authorized_User(user1, async_client):
     data = {"username":"lawalafeez820@gmail.com","password": "test"}
     res = await async_client.post("/login", data = data)
     res = res.json()
     async_client.headers ={**async_client.headers, "Authorization": f"Bearer {res['access_token']}"}
     return async_client
+
+@pytest_asyncio.fixture
+async def Authorized_User2(user2, async_client):
+    data = {"username":"lawalafeez8202@gmail.com","password": "test2"}
+    res = await async_client.post("/login", data = data)
+    res = res.json()
+    async_client.headers ={**async_client.headers, "Authorization": f"Bearer {res['access_token']}"}
+    return async_client
+
+
+@pytest_asyncio.fixture
+async def post(Authorized_User):
+
+    data={
+         "title": "real",
+    "content":"too real",
+    "publish" : True
+    }
+    res= await Authorized_User.post("/post/", json= data)
+
+    return res.json()
+
+@pytest_asyncio.fixture
+async def comment(Authorized_User, post):
+    data={
+      "comment": "commenting"
+    }
+    res = await Authorized_User.post(f"/comment/1", json= data)
+    return res.json()
+
+@pytest_asyncio.fixture
+async def vote(Authorized_User2, post):
+    data={
+      "votedir": 1
+    }
+    res = await Authorized_User2.post(f"/like/1", json= data)
+    return res.json()
+
+
+
 
     
 
