@@ -5,7 +5,7 @@ on: [push]
 jobs:
 
   job1:
-    environment: development
+    environment: delopment
     env:
       database_test_name: postgresql+asyncpg://postgres:password123@localhost:5432/app-social_test
       database_name: ${{secrets.database_name}}
