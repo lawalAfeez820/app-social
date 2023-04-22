@@ -7,6 +7,7 @@ jobs:
   job1:
     env:
       database_test_name: postgresql+asyncpg://postgres:password123@localhost:5432/app-social_test
+      database_name: postgresql+asyncpg://postgres:password123@localhost:5432/api-social
       ALGORITHM: HS256
       SECRET_KEY: GRTYUHTIG8GHU4I87GNKEVNUHBNUBTT4UJN4U
       EXPIRY_TIME: 30
