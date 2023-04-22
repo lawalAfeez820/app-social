@@ -1,13 +1,10 @@
 name: Social App github action workflow
-
 on: [push]
-
 jobs:
   job1:
     runs-on: ubuntu-latest
     steps:
       - name: pulling repository
-        uses: actions/checkout@v2
-      -name: set up python
-        run: echo "hello"
+        uses: actions/checkout@v4
+      
        
