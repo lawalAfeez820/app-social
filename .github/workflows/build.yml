@@ -7,5 +7,5 @@ jobs:
       - name: pulling repository
         uses: actions/checkout@v2
       - name: set up python
-        run: echo "hello"
+        run: sudo apt install python3
        
