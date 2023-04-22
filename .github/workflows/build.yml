@@ -5,12 +5,13 @@ on: [push]
 jobs:
 
   job1:
+  environment: development
     env:
       database_test_name: postgresql+asyncpg://postgres:password123@localhost:5432/app-social_test
-      database_name: postgresql+asyncpg://postgres:password123@localhost:5432/api-social
-      ALGORITHM: HS256
-      SECRET_KEY: GRTYUHTIG8GHU4I87GNKEVNUHBNUBTT4UJN4U
-      EXPIRY_TIME: 30
+      database_name: ${{secrets.database_name}}
+      ALGORITHM: ${{secrets.ALGORITHM}}
+      SECRET_KEY: ${{secrets.SECRET_KEY}}
+      EXPIRY_TIME: ${{secrets.EXPIRY_TIME}}
     runs-on: ubuntu-latest
     steps:
       - name: pulling repository
