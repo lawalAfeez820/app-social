@@ -7,7 +7,7 @@ jobs:
   job1:
     environment: delopment
     env:
-      database_test_name: postgresql+asyncpg://postgres:password123@localhost:5432/app-social_test
+      database_test_name: ${{secrets.database_test_name}}
       database_name: ${{secrets.database_name}}
       ALGORITHM: ${{secrets.ALGORITHM}}
       SECRET_KEY: ${{secrets.SECRET_KEY}}
@@ -19,8 +19,8 @@ jobs:
         image: postgres
         # Provide the password for postgres
         env:
-          POSTGRES_PASSWORD: passsword123
-          POSTGRES_DB: app-social_test
+          POSTGRES_PASSWORD: ${{secrets.POSTGRES_PASSWORD}}
+          POSTGRES_DB: ${{secrets.POSTGRES_DB}}
         ports:
         - 5432:5432
         # Set health checks to wait until postgres has started
