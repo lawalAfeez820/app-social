@@ -8,5 +8,6 @@ jobs:
     steps:
       - name: pulling repository
         uses: actions/checkout@v2
-      - name: say hi
-        run: echo "hello hydrogen"
+      -name: set up python
+       run: sudo apt install python3
+      - 
