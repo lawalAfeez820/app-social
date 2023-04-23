@@ -32,11 +32,11 @@ async def Login(details:OAuth2PasswordRequestForm = Depends(), db: Session = Dep
     user: User | None = user.first()
 
     if not user:
-        raise HTTPException(status_code= 409, detail = "Incorrect Email or password")
+        raise HTTPException(status_code= 401, detail = "Incorrect Email or password")
     
     
     if not password.verify_hash(details.password, user.password):
-        raise HTTPException(status_code= 409, detail = "Incorrect Email or password")
+        raise HTTPException(status_code= 401, detail = "Incorrect Email or password")
     
     token:str = Token_Data.get_access_token({"email": details.username})
     return LoginCred(access_token = token, token_type = "bearer")
