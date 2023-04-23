@@ -22,7 +22,7 @@ async def forgetpin(Password:ForgetPassword, db: Session= Depends(get_session)):
     db.add(user)
     await db.commit()
     await db.refresh(user)
-    return PlainText(detail = f"Your password has been reset to your mail")
+    return PlainText(detail = f"Your password has been reset to your e-mail and you are adviced to change it immediately you login")
 
 #login
 @app.post("/login", response_model = LoginCred)
