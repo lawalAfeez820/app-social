@@ -54,3 +54,4 @@ async def count_vote(post_id:int, user:users.User = Depends(Token_Data.get_curre
         raise HTTPException(404, detail = f"No like for post of id {post_id}")
     return users.PlainText(detail = f"The total number of like for post of id {post_id} is {len(votes)}")
 
+
