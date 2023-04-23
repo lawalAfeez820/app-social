@@ -19,11 +19,11 @@ for the commands used during development.
 
 Clone the repo -:
 ```console
-$ git clone https://github.com/lawalafeez820/app-social.git
+$ git clone https://github.com/lawalAfeez820/app-social.git
 ```
 Clone the repo in the current directory-:
 ```console
-$ git clone https://github.com/lawalafeez820/app-social.git .
+$ git clone https://github.com/lawalAfeez820/app-social.git .
 ```
 
 Start by creating a virtual environment - windows:
