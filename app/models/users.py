@@ -44,7 +44,7 @@ class UserPost(SQLModel):
     updated_at: datetime = Field(default_factory=datetime.utcnow, sa_column=sqlalchemy.Column(sqlalchemy.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow))
 
 class UserData(UserOut):
-    posts: List[UserPost] | None
+    posts: List[UserPost]
 
 class LoginCred(SQLModel):
     access_token: str
