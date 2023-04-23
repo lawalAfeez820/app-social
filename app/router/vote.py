@@ -11,7 +11,7 @@ from sqlalchemy.engine.result import ScalarResult
 
 
 app = APIRouter(
-        prefix = "/like", tags = ["VOTES"])
+        prefix = "/like", tags = ["LIKES"])
 
 @app.post("/{post_id}", status_code = 201)
 async def like(post_id: int, votes: vote.VoteDir, user:users.User = Depends(Token_Data.get_current_user), db: Session = Depends(get_session)):
