@@ -1,5 +1,5 @@
 # Backend Application
-## The Application is live [here](https://social-app.render.com) and the documentation [here](https://social-app.render.com)
+## The Application is live [here](https://app-social.onrender.com) and the documentation [here](https://app-social.onrender.com)
 
 
 The backend uses the following technologies:
