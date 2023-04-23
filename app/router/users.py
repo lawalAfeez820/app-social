@@ -2,7 +2,6 @@ from fastapi import Depends, APIRouter, HTTPException
 from sqlmodel import Session, select
 from app.models.users import User, CreateUser, UserOut, LoginCred, PasswordData, PlainText, UserData
 from app.database.db import get_session
-from typing import Annotated
 from app.Password_Manager.password import password
 from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
 from app.OAuth.oauth import Token_Data, oauth_data, BLACKLIST
