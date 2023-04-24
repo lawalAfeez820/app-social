@@ -1,4 +1,5 @@
 from fastapi import FastAPI , HTTPException, Depends
+from fastapi.middleware.cors import CORSMiddleware
 from app.router import post, users, login,comment, vote
 from app.models.comments import CommentOut
 from app.models.users import User, UserPost
@@ -9,9 +10,19 @@ CommentOut.update_forward_refs(PostOwner=PostOwner, UserPost= UserPost)
 
 app = FastAPI()
 
+
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 @app.get("/")
 async def home():
-    return {"Greet": "Welcome"}
+    return {"Greet": "Welcome!!!"}
 
 
 # routers
