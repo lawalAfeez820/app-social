@@ -10,6 +10,7 @@ The backend uses the following technologies:
 - [Render](https://blog.akashrchandran.in/deploying-fastapi-application-to-render   ) for handling deployments, 
 - [Pytest](https://docs.pytest.org/en/6.2.x/contents.html) for handling tests,
 - [Alembic](https://alembic.sqlalchemy.org/en/latest/) for handling database migrations,
+- [GitHub action](https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python) for handling CI/CD pipeline
 - [pyJWT](https://pyjwt.readthedocs.io/en/stable/) for handling JSON WEB TOKEN,
 
 ## Setup for development
